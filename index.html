@@ -16,8 +16,8 @@
       --warning: #ed6c02;
       --bg: #f4f6f4;
       --card: #ffffff;
-      --text: #2c3e50;
-      --border: #e0e0e0;
+      --text: #1a1a1a;
+      --border: #cccccc;
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -25,58 +25,77 @@
       color: var(--text);
       margin: 0;
       padding: 12px;
-      padding-bottom: 80px;
+      padding-bottom: 90px;
+      font-size: 16px; /* Larger base font size */
     }
-    h1 { font-size: 1.3rem; color: var(--primary); text-align: center; margin: 8px 0 16px; }
+    h1 { font-size: 1.5rem; color: var(--primary); text-align: center; margin: 8px 0 14px; }
+
+    /* Top Control Bar */
+    .daily-bar {
+      background: #fff;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .date-row { display: flex; justify-content: space-between; align-items: center; }
+    .date-input { padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); font-size: 1.05rem; font-weight: bold; color: var(--text); }
+    .status-badge { font-size: 0.9rem; padding: 6px 10px; border-radius: 12px; font-weight: bold; }
+    .status-badge.submitted { background: #c8e6c9; color: #1b5e20; }
+    .status-badge.editing { background: #f5f5f5; color: #666; border: 1px solid #ccc; }
     
+    .btn-submit { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; text-align: center; }
+    .btn-submit:active { background: #1b5e20; }
+    .btn-unlock { background: #616161; color: white; border: none; padding: 10px; border-radius: 6px; font-size: 0.95rem; font-weight: bold; cursor: pointer; }
+
     /* Navigation Tabs */
     .tabs { display: flex; background: #fff; border-radius: 8px; overflow: hidden; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    .tab-btn { flex: 1; padding: 12px 4px; text-align: center; border: none; background: #fff; font-weight: bold; font-size: 0.85rem; color: #666; cursor: pointer; border-bottom: 3px solid transparent; }
+    .tab-btn { flex: 1; padding: 12px 4px; text-align: center; border: none; background: #fff; font-weight: bold; font-size: 0.95rem; color: #555; cursor: pointer; border-bottom: 3px solid transparent; }
     .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); background: var(--primary-light); }
     
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
     /* Category Headers */
-    .category-title { font-weight: bold; margin-top: 16px; margin-bottom: 8px; font-size: 1rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 4px; }
+    .category-title { font-weight: bold; margin-top: 18px; margin-bottom: 10px; font-size: 1.15rem; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 4px; }
     
     /* Item Card */
-    .item-card { background: var(--card); border-radius: 10px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); display: flex; flex-direction: column; gap: 8px; }
-    .item-card.perishing { border-left: 4px solid var(--danger); background: #fff9f9; }
-    .item-card.low-stock { border-right: 4px solid var(--warning); }
+    .item-card { background: var(--card); border-radius: 10px; padding: 14px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); display: flex; flex-direction: column; gap: 10px; }
+    .item-card.perishing { border-left: 5px solid var(--danger); background: #fff5f5; }
+    .item-card.low-stock { border-right: 5px solid var(--warning); }
+    .item-card.locked { opacity: 0.88; }
     
     .item-header { display: flex; justify-content: space-between; align-items: center; }
-    .item-title { font-weight: 600; font-size: 0.95rem; }
-    .item-title span { display: block; font-size: 0.8rem; color: #666; font-weight: normal; }
+    .item-title { font-weight: bold; font-size: 1.15rem; }
+    .item-title span { font-weight: normal; font-size: 1.05rem; color: #444; margin-left: 6px; }
     
-    .controls { display: flex; align-items: center; gap: 10px; }
-    .btn-qty { background: var(--primary-light); border: 1px solid var(--primary); color: var(--primary); font-size: 1.2rem; font-weight: bold; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .btn-qty:active { background: var(--primary); color: #fff; }
-    .qty-num { font-weight: bold; min-width: 28px; text-align: center; font-size: 1.05rem; }
+    .controls { display: flex; align-items: center; gap: 12px; }
+    .btn-qty { background: var(--primary-light); border: 1.5px solid var(--primary); color: var(--primary); font-size: 1.4rem; font-weight: bold; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .btn-qty:disabled { background: #f0f0f0; border-color: #ccc; color: #aaa; cursor: not-allowed; }
+    .qty-num { font-weight: bold; min-width: 32px; text-align: center; font-size: 1.25rem; }
     
-    .perish-toggle { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--danger); background: var(--danger-light); padding: 4px 8px; border-radius: 4px; cursor: pointer; width: fit-content; }
-    .perish-toggle input { accent-color: var(--danger); }
+    /* Perish Toggle Style */
+    .perish-toggle { display: flex; align-items: center; gap: 8px; font-size: 0.92rem; color: #555; background: #f5f5f5; border: 1px solid #ddd; padding: 6px 12px; border-radius: 6px; cursor: pointer; width: fit-content; }
+    .item-card.perishing .perish-toggle { color: var(--danger); background: var(--danger-light); border-color: #ffcdd2; font-weight: bold; }
 
-    /* Shopping & Perishing Alert Boxes */
-    .alert-box { background: #fff; border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-    .alert-box.danger-box { border-left: 4px solid var(--danger); }
-    .alert-box.warning-box { border-left: 4px solid var(--warning); }
-    .alert-box h3 { margin: 0 0 8px; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
-    .alert-list { margin: 0; padding-left: 18px; font-size: 0.88rem; }
-    .alert-list li { margin-bottom: 4px; }
+    /* Alert Boxes & Summary Tables */
+    .alert-box { background: #fff; border-radius: 10px; padding: 14px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .alert-box.danger-box { border-left: 5px solid var(--danger); }
+    .alert-box.warning-box { border-left: 5px solid var(--warning); }
+    .alert-box h3 { margin: 0 0 10px; font-size: 1.1rem; }
+    .alert-list { margin: 0; padding-left: 20px; font-size: 1rem; }
+    .alert-list li { margin-bottom: 6px; }
     
-    /* Buttons */
-    .btn-copy { width: 100%; background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 6px; font-weight: bold; margin-top: 8px; cursor: pointer; }
-    
-    /* Recipe Cards */
-    .recipe-card { background: #fff; border-radius: 8px; padding: 12px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-    .recipe-title { font-weight: bold; font-size: 1rem; color: var(--primary); }
-    .recipe-link { font-size: 0.8rem; color: #0288d1; text-decoration: none; word-break: break-all; }
-    .recipe-notes { background: #fffde7; padding: 8px; border-radius: 4px; font-size: 0.82rem; margin-top: 6px; border: 1px solid #fff59d; }
-    .tag { display: inline-block; background: #e0e0e0; padding: 2px 6px; border-radius: 4px; font-size: 0.72rem; margin-right: 4px; margin-top: 4px; }
+    .summary-table { width: 100%; border-collapse: collapse; margin-top: 8px; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .summary-table th, .summary-table td { padding: 10px 12px; text-align: left; font-size: 0.98rem; border-bottom: 1px solid #eee; }
+    .summary-table th { background: #f0f4f0; color: var(--primary); font-size: 0.9rem; }
 
-    /* Floating Sync Status */
-    #sync-status { position: fixed; bottom: 10px; right: 10px; background: rgba(0,0,0,0.75); color: #fff; padding: 5px 12px; border-radius: 12px; font-size: 0.75rem; z-index: 1000; }
+    .btn-copy { width: 100%; background: var(--primary); color: #fff; border: none; padding: 12px; border-radius: 6px; font-size: 1rem; font-weight: bold; margin-top: 10px; cursor: pointer; }
+
+    #sync-status { position: fixed; bottom: 10px; right: 10px; background: rgba(0,0,0,0.8); color: #fff; padding: 6px 14px; border-radius: 14px; font-size: 0.82rem; z-index: 1000; }
   </style>
 </head>
 <body>
@@ -86,30 +105,54 @@
 
   <!-- Navigation Tabs -->
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('stock-tab')">📦 Stock Check<br><small>(Helper View)</small></button>
-    <button class="tab-btn" onclick="switchTab('lunch-tab')">🍽️ Lunch Brainstorm<br><small>(Owner View)</small></button>
-    <button class="tab-btn" onclick="switchTab('recipe-tab')">📖 Recipes<br><small>(Cookbook)</small></button>
+    <button class="tab-btn active" onclick="switchTab('stock-tab')">📦 Helper Check</button>
+    <button class="tab-btn" onclick="switchTab('owner-summary-tab')">📋 Daily Stock Log</button>
+    <button class="tab-btn" onclick="switchTab('lunch-tab')">🍽️ Lunch & Shop</button>
+    <button class="tab-btn" onclick="switchTab('recipe-tab')">📖 Recipes</button>
   </div>
 
-  <!-- TAB 1: STOCK CHECK (HELPER VIEW) -->
+  <!-- TAB 1: HELPER STOCK CHECK -->
   <div id="stock-tab" class="tab-content active">
+    
+    <div class="daily-bar">
+      <div class="date-row">
+        <div>
+          <label style="font-size:0.85rem; font-weight:bold; color:#666; display:block;">Check Date:</label>
+          <input type="date" id="stock-date" class="date-input" onchange="onDateChange()">
+        </div>
+        <span id="status-badge" class="status-badge editing">Editing</span>
+      </div>
+      <button id="btn-submit-daily" class="btn-submit" onclick="submitDailyCheck()">✅ Submit Today's Check (提交今日盤點)</button>
+      <button id="btn-unlock-daily" class="btn-unlock" onclick="unlockEditing()" style="display:none;">🔓 Unlock to Edit (解鎖修改)</button>
+    </div>
+
     <div id="inventory-container">Loading Master Produce List...</div>
   </div>
 
-  <!-- TAB 2: LUNCH BRAINSTORM & SHOPPING (OWNER VIEW) -->
+  <!-- TAB 2: OWNER VIEW (DAILY STOCK LOG / SUBMISSION SUMMARY) -->
+  <div id="owner-summary-tab" class="tab-content">
+    <div style="background:#fff; padding:14px; border-radius:10px; margin-bottom:14px; box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+      <h3 style="margin:0 0 8px; font-size:1.1rem; color:var(--primary);">📋 Submitted Stock Record</h3>
+      <div id="log-status-text" style="font-size:0.95rem; color:#666;">Select a date to view submitted report:</div>
+    </div>
+
+    <div id="summary-content-container">
+      <em>No submitted stock record found for today yet. When your helper submits, her list will appear here cleanly.</em>
+    </div>
+  </div>
+
+  <!-- TAB 3: LUNCH BRAINSTORM & SHOPPING -->
   <div id="lunch-tab" class="tab-content">
     
-    <!-- Perishing Alert Box -->
     <div class="alert-box danger-box">
-      <h3>🚨 EAT FIRST / PERISHING TODAY (需儘快食用)</h3>
+      <h3 style="color:var(--danger);">🚨 EAT FIRST / PERISHING TODAY (需儘快食用)</h3>
       <ul id="perishing-list" class="alert-list">
         <li><em>No perishing items flagged today.</em></li>
       </ul>
     </div>
 
-    <!-- Shopping Refill Box -->
     <div class="alert-box warning-box">
-      <h3>🛒 NEEDS REFILL / SHOPPING LIST (需要補貨)</h3>
+      <h3 style="color:var(--warning);">🛒 NEEDS REFILL / SHOPPING LIST (需要補貨)</h3>
       <ul id="shopping-list" class="alert-list">
         <li><em>All stock targets are well supplied!</em></li>
       </ul>
@@ -118,25 +161,22 @@
 
   </div>
 
-  <!-- TAB 3: FAMILY RECIPE BOOK -->
+  <!-- TAB 4: FAMILY RECIPE BOOK -->
   <div id="recipe-tab" class="tab-content">
-    
-    <div style="background: #fff; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
-      <h3 style="margin-top:0; font-size: 0.95rem;">+ Add New Family Recipe</h3>
-      <input type="text" id="recipe-name" placeholder="Recipe Title (e.g. Stir-Fried Choy Sum & Tofu)" style="width:100%; padding:8px; margin-bottom:6px; box-sizing:border-box;">
-      <input type="text" id="recipe-url" placeholder="Original Web / Google Link (Optional)" style="width:100%; padding:8px; margin-bottom:6px; box-sizing:border-box;">
-      <textarea id="recipe-notes" placeholder="Family Notes / Helper Instructions (e.g. Cut soft for toddler, no chili)" style="width:100%; padding:8px; height:60px; margin-bottom:6px; box-sizing:border-box;"></textarea>
-      <input type="text" id="recipe-tags" placeholder="Main Ingredients (e.g. Hard Tofu, Choy Sum)" style="width:100%; padding:8px; margin-bottom:8px; box-sizing:border-box;">
+    <div style="background: #fff; padding: 14px; border-radius: 10px; margin-bottom: 14px; box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+      <h3 style="margin-top:0; font-size: 1.05rem;">+ Add New Family Recipe</h3>
+      <input type="text" id="recipe-name" placeholder="Recipe Title (e.g. Stir-Fried Choy Sum & Tofu)" style="width:100%; padding:10px; margin-bottom:8px; box-sizing:border-box; font-size:1rem;">
+      <input type="text" id="recipe-url" placeholder="Original Web / Google Link (Optional)" style="width:100%; padding:10px; margin-bottom:8px; box-sizing:border-box; font-size:1rem;">
+      <textarea id="recipe-notes" placeholder="Family Notes / Helper Instructions (e.g. Cut soft for toddler, no chili)" style="width:100%; padding:10px; height:70px; margin-bottom:8px; box-sizing:border-box; font-size:0.95rem;"></textarea>
+      <input type="text" id="recipe-tags" placeholder="Main Ingredients (e.g. Hard Tofu, Choy Sum)" style="width:100%; padding:10px; margin-bottom:10px; box-sizing:border-box; font-size:1rem;">
       <button class="btn-copy" onclick="addRecipe()">Save to Family Cookbook</button>
     </div>
 
     <h3>📖 Saved Recipes</h3>
     <div id="recipe-container">Loading recipes...</div>
-
   </div>
 
   <script>
-    // Firebase Project Configuration
     const firebaseConfig = {
       apiKey: "m33yBmWyB8yrrExC4qBp7NivGR2bwwuCvKZXuBno",
       authDomain: "kitchen-hub-5b12f.firebaseapp.com",
@@ -146,16 +186,19 @@
       appId: "1:123456789:web:abcdef"
     };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Initial Bilingual Master List
+    const todayStr = new Date().toISOString().split('T')[0];
+    document.getElementById('stock-date').value = todayStr;
+
+    let isLocked = false;
+    let currentStock = [];
+
     const masterItems = [
-      // Smoothie Base
       { id: 'bananas', en: 'Bananas', zh: '香蕉', cat: '🥤 Smoothie Base', qty: 15, target: 15, unit: 'pcs', perish: false },
       { id: 'celery', en: 'Celery', zh: '西芹', cat: '🥤 Smoothie Base', qty: 3, target: 3, unit: 'stalks', perish: false },
-      { id: 'lemon_lime', en: 'Lemon / Lime', zh: '檸檬 / 青檸', cat: '🥤 Smoothie Base', qty: 6, target: 6, unit: 'pcs', perish: false },
+      { id: 'lemon_lime', en: 'Lemon / Lime', zh: '檸檬/青檸', cat: '🥤 Smoothie Base', qty: 6, target: 6, unit: 'pcs', perish: false },
       { id: 'apples', en: 'Apples', zh: '蘋果', cat: '🥤 Smoothie Base', qty: 6, target: 6, unit: 'pcs', perish: false },
       { id: 'cucumber', en: 'Cucumber', zh: '青瓜', cat: '🥤 Smoothie Base', qty: 3, target: 3, unit: 'pcs', perish: false },
       { id: 'spinach', en: 'Spinach', zh: '菠菜', cat: '🥤 Smoothie Base', qty: 2, target: 0, unit: 'packs', perish: false },
@@ -165,7 +208,6 @@
       { id: 'coconut_water', en: 'Coconut Water', zh: '椰子水', cat: '🥤 Smoothie Base', qty: 2, target: 0, unit: 'cartons', perish: false },
       { id: 'plant_milk', en: 'Plant Milk', zh: '植物奶', cat: '🥤 Smoothie Base', qty: 2, target: 0, unit: 'cartons', perish: false },
 
-      // Salad & Raw Produce
       { id: 'chinese_lettuce', en: 'Chinese Lettuce', zh: '唐生菜', cat: '🥗 Salad & Raw Produce', qty: 2, target: 2, unit: 'pcs', perish: false },
       { id: 'iceberg_lettuce', en: 'Iceberg Lettuce', zh: '西生菜', cat: '🥗 Salad & Raw Produce', qty: 1, target: 0, unit: 'pcs', perish: false },
       { id: 'carrots', en: 'Carrots', zh: '紅蘿蔔', cat: '🥗 Salad & Raw Produce', qty: 1, target: 1, unit: 'pack', perish: false },
@@ -176,7 +218,6 @@
       { id: 'bell_peppers', en: 'Bell Peppers', zh: '三色燈籠椒', cat: '🥗 Salad & Raw Produce', qty: 3, target: 0, unit: 'pcs', perish: false },
       { id: 'sweet_corn', en: 'Sweet Corn', zh: '粟米', cat: '🥗 Salad & Raw Produce', qty: 2, target: 0, unit: 'pcs', perish: false },
 
-      // Fruits
       { id: 'oranges', en: 'Oranges', zh: '橙', cat: '🥭 Fresh Fruits', qty: 15, target: 15, unit: 'pcs', perish: false },
       { id: 'mangoes', en: 'Mangoes', zh: '芒果', cat: '🥭 Fresh Fruits', qty: 4, target: 0, unit: 'pcs', perish: false },
       { id: 'pears', en: 'Pears', zh: '梨', cat: '🥭 Fresh Fruits', qty: 3, target: 0, unit: 'pcs', perish: false },
@@ -187,22 +228,19 @@
       { id: 'blueberries', en: 'Blueberries', zh: '藍莓', cat: '🥭 Fresh Fruits', qty: 1, target: 0, unit: 'punnet', perish: false },
       { id: 'grapes', en: 'Grapes', zh: '提子', cat: '🥭 Fresh Fruits', qty: 1, target: 0, unit: 'pack', perish: false },
 
-      // Asian Greens
       { id: 'choy_sum', en: 'Choy Sum', zh: '菜心', cat: '🥬 Asian Leafy Greens', qty: 2, target: 0, unit: 'packs', perish: false },
       { id: 'bok_choy', en: 'Bok Choy', zh: '白菜', cat: '🥬 Asian Leafy Greens', qty: 2, target: 0, unit: 'packs', perish: false },
       { id: 'gai_lan', en: 'Gai Lan', zh: '芥蘭', cat: '🥬 Asian Leafy Greens', qty: 1, target: 0, unit: 'packs', perish: false },
       { id: 'water_spinach', en: 'Water Spinach (Ong Choy)', zh: '通菜', cat: '🥬 Asian Leafy Greens', qty: 1, target: 0, unit: 'packs', perish: false },
       { id: 'cabbage', en: 'Cabbage', zh: '椰菜', cat: '🥬 Asian Leafy Greens', qty: 1, target: 0, unit: 'head', perish: false },
 
-      // Proteins & Mushrooms
-      { id: 'hard_tofu', en: 'Hard Tofu', zh: '硬豆腐 / 板豆腐', cat: '🍲 Tofu & Mushrooms', qty: 3, target: 0, unit: 'packs', perish: false },
+      { id: 'hard_tofu', en: 'Hard Tofu', zh: '硬豆腐/板豆腐', cat: '🍲 Tofu & Mushrooms', qty: 3, target: 0, unit: 'packs', perish: false },
       { id: 'soft_tofu', en: 'Soft Tofu', zh: '嫩豆腐', cat: '🍲 Tofu & Mushrooms', qty: 1, target: 0, unit: 'packs', perish: false },
       { id: 'tofu_puffs', en: 'Tofu Puffs', zh: '豆腐卜', cat: '🍲 Tofu & Mushrooms', qty: 1, target: 0, unit: 'packs', perish: false },
       { id: 'bean_curd', en: 'Bean Curd', zh: '腐竹', cat: '🍲 Tofu & Mushrooms', qty: 1, target: 0, unit: 'packs', perish: false },
       { id: 'eringi_mushrooms', en: 'King Oyster Mushrooms', zh: '杏鮑菇', cat: '🍲 Tofu & Mushrooms', qty: 2, target: 0, unit: 'packs', perish: false },
       { id: 'shiitake_mushrooms', en: 'Shiitake Mushrooms', zh: '鮮冬菇', cat: '🍲 Tofu & Mushrooms', qty: 2, target: 0, unit: 'packs', perish: false },
 
-      // Tubers & Cooking Veggies
       { id: 'potatoes', en: 'Potatoes', zh: '薯仔', cat: '🍠 Tubers & Cooking Veggies', qty: 4, target: 0, unit: 'pcs', perish: false },
       { id: 'sweet_potatoes', en: 'Japanese Sweet Potatoes', zh: '日本番薯', cat: '🍠 Tubers & Cooking Veggies', qty: 6, target: 0, unit: 'pcs', perish: false },
       { id: 'eggplant', en: 'Eggplant', zh: '茄子', cat: '🍠 Tubers & Cooking Veggies', qty: 2, target: 0, unit: 'pcs', perish: false },
@@ -210,25 +248,119 @@
       { id: 'garlic', en: 'Garlic', zh: '蒜頭', cat: '🍠 Tubers & Cooking Veggies', qty: 4, target: 0, unit: 'heads', perish: false }
     ];
 
-    let currentStock = [];
-
-    // Real-Time Database Sync
     db.collection("stock").onSnapshot((snapshot) => {
       document.getElementById('sync-status').innerText = '🟢 Live Synced';
       if (snapshot.empty) {
-        // Seed Database first time
         masterItems.forEach(item => db.collection("stock").doc(item.id).set(item));
       } else {
         currentStock = [];
         snapshot.forEach(doc => currentStock.push(doc.data()));
+        checkDailyLockStatus();
         renderStock();
         renderLunchBrainstorm();
       }
-    }, (error) => {
+    }, () => {
       document.getElementById('sync-status').innerText = '🔴 Offline / Key Error';
     });
 
+    function checkDailyLockStatus() {
+      const selectedDate = document.getElementById('stock-date').value;
+      db.collection("daily_submissions").doc(selectedDate).get().then(doc => {
+        if (doc.exists) {
+          isLocked = true;
+          document.getElementById('status-badge').innerText = `Submitted (${doc.data().submittedAt})`;
+          document.getElementById('status-badge').className = 'status-badge submitted';
+          document.getElementById('btn-submit-daily').style.display = 'none';
+          document.getElementById('btn-unlock-daily').style.display = 'block';
+          renderSubmittedOwnerView(doc.data());
+        } else {
+          isLocked = false;
+          document.getElementById('status-badge').innerText = 'Editing';
+          document.getElementById('status-badge').className = 'status-badge editing';
+          document.getElementById('btn-submit-daily').style.display = 'block';
+          document.getElementById('btn-unlock-daily').style.display = 'none';
+          renderUnsubmittedOwnerView();
+        }
+        renderStock();
+      });
+    }
+
+    function renderSubmittedOwnerView(data) {
+      document.getElementById('log-status-text').innerHTML = `✅ Report submitted for <strong>${data.submittedDate}</strong> at <strong>${data.submittedAt}</strong>`;
+      
+      const container = document.getElementById('summary-content-container');
+      const snapshot = data.stockSnapshot || currentStock;
+
+      const categories = [...new Set(snapshot.map(i => i.cat))];
+      let html = '';
+
+      categories.forEach(cat => {
+        html += `<h4 style="margin:16px 0 6px; color:var(--primary); font-size:1.1rem;">${cat}</h4>`;
+        html += `<table class="summary-table">
+          <thead>
+            <tr>
+              <th>Item (品名)</th>
+              <th style="width:80px; text-align:center;">Count</th>
+              <th style="width:100px; text-align:center;">Status</th>
+            </tr>
+          </thead>
+          <tbody>`;
+
+        snapshot.filter(i => i.cat === cat).forEach(item => {
+          html += `<tr>
+            <td><strong>${item.en}</strong> <span style="color:#555;">${item.zh}</span></td>
+            <td style="text-align:center; font-weight:bold; font-size:1.1rem;">${item.qty}</td>
+            <td style="text-align:center;">
+              ${item.perish ? '<span style="color:var(--danger); font-weight:bold; background:var(--danger-light); padding:2px 6px; border-radius:4px; font-size:0.8rem;">⚠️ Eat First</span>' : '<span style="color:#888;">OK</span>'}
+            </td>
+          </tr>`;
+        });
+
+        html += `</tbody></table>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function renderUnsubmittedOwnerView() {
+      const selectedDate = document.getElementById('stock-date').value;
+      document.getElementById('log-status-text').innerText = `Select a date to view submitted report:`;
+      document.getElementById('summary-content-container').innerHTML = `
+        <div style="background:#fff; padding:20px; text-align:center; border-radius:10px; color:#666;">
+          <em>No report submitted yet for ${selectedDate}.<br>When your helper taps "Submit Today's Check", her report will appear here cleanly.</em>
+        </div>`;
+    }
+
+    function onDateChange() {
+      checkDailyLockStatus();
+    }
+
+    function submitDailyCheck() {
+      const selectedDate = document.getElementById('stock-date').value;
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      db.collection("daily_submissions").doc(selectedDate).set({
+        submittedAt: timeStr,
+        submittedDate: selectedDate,
+        stockSnapshot: currentStock
+      }).then(() => {
+        alert("Today's check submitted!");
+        checkDailyLockStatus();
+        switchTab('owner-summary-tab');
+      });
+    }
+
+    function unlockEditing() {
+      isLocked = false;
+      document.getElementById('btn-submit-daily').style.display = 'block';
+      document.getElementById('btn-unlock-daily').style.display = 'none';
+      document.getElementById('status-badge').innerText = 'Editing';
+      document.getElementById('status-badge').className = 'status-badge editing';
+      renderStock();
+    }
+
     function updateQty(id, change) {
+      if (isLocked) return;
       const item = currentStock.find(i => i.id === id);
       if (item) {
         const newQty = Math.max(0, item.qty + change);
@@ -237,6 +369,7 @@
     }
 
     function togglePerish(id, isPerishing) {
+      if (isLocked) return;
       db.collection("stock").doc(id).update({ perish: isPerishing });
     }
 
@@ -254,21 +387,20 @@
 
         currentStock.filter(i => i.cat === cat).forEach(item => {
           const card = document.createElement('div');
-          card.className = `item-card ${item.perish ? 'perishing' : ''} ${(item.target > 0 && item.qty < item.target) ? 'low-stock' : ''}`;
+          card.className = `item-card ${item.perish ? 'perishing' : ''} ${(item.target > 0 && item.qty < item.target) ? 'low-stock' : ''} ${isLocked ? 'locked' : ''}`;
           card.innerHTML = `
             <div class="item-header">
               <div class="item-title">
-                ${item.en}
-                <span>${item.zh}</span>
+                ${item.en} <span>${item.zh}</span>
               </div>
               <div class="controls">
-                <button class="btn-qty" onclick="updateQty('${item.id}', -1)">-</button>
+                <button class="btn-qty" ${isLocked ? 'disabled' : ''} onclick="updateQty('${item.id}', -1)">-</button>
                 <span class="qty-num">${item.qty}</span>
-                <button class="btn-qty" onclick="updateQty('${item.id}', 1)">+</button>
+                <button class="btn-qty" ${isLocked ? 'disabled' : ''} onclick="updateQty('${item.id}', 1)">+</button>
               </div>
             </div>
             <label class="perish-toggle">
-              <input type="checkbox" ${item.perish ? 'checked' : ''} onchange="togglePerish('${item.id}', this.checked)">
+              <input type="checkbox" ${item.perish ? 'checked' : ''} ${isLocked ? 'disabled' : ''} onchange="togglePerish('${item.id}', this.checked)">
               ⚠️ Perishing / Eat First (需儘快食用)
             </label>
           `;
@@ -281,22 +413,20 @@
       const perishList = document.getElementById('perishing-list');
       const shopList = document.getElementById('shopping-list');
 
-      // 1. Perishing List
       const perishingItems = currentStock.filter(i => i.perish);
       if (perishingItems.length === 0) {
         perishList.innerHTML = '<li><em>No perishing items flagged today.</em></li>';
       } else {
-        perishList.innerHTML = perishingItems.map(i => `<li><strong>${i.en} (${i.zh})</strong> — ${i.qty} ${i.unit} remaining</li>`).join('');
+        perishList.innerHTML = perishingItems.map(i => `<li><strong>${i.en} ${i.zh}</strong> — ${i.qty} ${i.unit} remaining</li>`).join('');
       }
 
-      // 2. Shopping Refill List (Target Items Only)
       const lowStockItems = currentStock.filter(i => i.target > 0 && i.qty < i.target);
       if (lowStockItems.length === 0) {
         shopList.innerHTML = '<li><em>All stock targets are well supplied!</em></li>';
       } else {
         shopList.innerHTML = lowStockItems.map(i => {
           const needed = i.target - i.qty;
-          return `<li><strong>${i.en} (${i.zh})</strong> — Have ${i.qty}, <span style="color:var(--danger); font-weight:bold;">Buy +${needed} ${i.unit}</span></li>`;
+          return `<li><strong>${i.en} ${i.zh}</strong> — Have ${i.qty}, <span style="color:var(--danger); font-weight:bold;">Buy +${needed} ${i.unit}</span></li>`;
         }).join('');
       }
     }
@@ -309,13 +439,12 @@
       }
       let text = "🛒 *VEGAN KITCHEN SHOPPING LIST*\n\n";
       lowStockItems.forEach(i => {
-        text += `• ${i.en} (${i.zh}): Buy +${i.target - i.qty} ${i.unit}\n`;
+        text += `• ${i.en} ${i.zh}: Buy +${i.target - i.qty} ${i.unit}\n`;
       });
       navigator.clipboard.writeText(text);
       alert("Copied to clipboard! Ready to paste into WhatsApp.");
     }
 
-    // TAB 3: RECIPES
     db.collection("recipes").onSnapshot((snapshot) => {
       const container = document.getElementById('recipe-container');
       if (snapshot.empty) {
